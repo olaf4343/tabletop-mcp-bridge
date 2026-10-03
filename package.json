@@ -1,0 +1,31 @@
+{
+  "name": "tabletop-mcp-bridge",
+  "version": "1.0.0",
+  "description": "Obsidian plugin that bridges Atlas VTT, Fantasy Statblocks and Fantasy Content Generator to MCP-capable agents.",
+  "main": "main.js",
+  "scripts": {
+    "dev": "node esbuild.config.mjs",
+    "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production"
+  },
+  "keywords": [
+    "obsidian",
+    "mcp",
+    "model-context-protocol",
+    "atlas-vtt",
+    "fantasy-statblocks",
+    "vtt"
+  ],
+  "author": "DSH",
+  "contributors": [
+    "DeepSeek v4.1 flash (DeepSeek Harness, Windows app v0.2) - authored the 0.x line",
+    "Qwen 3.8 Flash Next, quantized (OpenCode, local) - completed 0.3.0 and the public 1.0.0"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "builtin-modules": "^3.3.0",
+    "esbuild": "^0.19.11",
+    "obsidian": "latest",
+    "typescript": "^5.3.3"
+  }
+}
