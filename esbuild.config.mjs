@@ -3,7 +3,7 @@ import process from "process";
 import builtins from "builtin-modules";
 
 const banner = `/*
-Tabletop MCP Bridge - generated/bundled by esbuild.
+Atlas VTT MCP Bridge - generated/bundled by esbuild.
 Source lives in src/. Provenance and history: see CHANGELOG.md.
 */
 `;

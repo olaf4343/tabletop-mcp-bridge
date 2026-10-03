@@ -1,56 +1,66 @@
-# Tabletop MCP Bridge
+# Atlas VTT MCP Bridge
 
-**Give any MCP-capable agent programmatic reach into your tabletop setup inside Obsidian.**
+**The agentic companion for [Atlas VTT](https://github.com/valentine195/obsidian-atlas-vtt).**
 
-The bridge registers first-class tools into the MCP server of the
-[Local REST API with MCP](https://github.com/coddingtonbear/obsidian-local-rest-api)
-plugin, exposing the three tabletop plugins that ship no API of their own:
+If your tabletop runs on Atlas VTT inside Obsidian, this plugin gives any
+MCP-capable agent programmatic hands on it: your token and map library, image
+reveals on the Atlas player window ("show the party this handout"), Atlas
+settings, and the live Fantasy Statblocks bestiary that fills Atlas tables with
+monsters — all as typed MCP tools.
 
-| Plugin | What becomes reachable through this bridge |
+> **What this is and isn't:** it is a bridge **for Atlas VTT setups**. Atlas VTT
+> (and the Local REST API plugin that hosts the MCP server) is required; there is
+> nothing here without it. Fantasy Statblocks and Fantasy Content Generator are
+> optional companions that complete an Atlas table — each feature degrades
+> gracefully, and `vtt_capabilities` always reports exactly what is reachable.
+
+| In your Atlas setup | What an agent can then do through this bridge |
 |---|---|
-| [Atlas VTT](https://github.com/valentine195/obsidian-atlas-vtt) | asset library (tokens, maps), settings (read + safe writes), player-window image reveals, UI commands (dice log, initiative, send-map-to-player-view, …) |
-| [Fantasy Statblocks](https://github.com/valentine195/obsidian-5e-statblocks) | the **live** bestiary: SRD creatures *and* creatures defined by your own note frontmatter, in full |
-| [Fantasy Content Generator](https://github.com/javalent/fantasy-content-generator) | its commands (via the allow-listed command runner) |
+| **Atlas VTT** *(required)* | browse the asset library (tokens, maps), reveal images on the player window, read and safely change settings, run Atlas commands (send-map-to-player-view, dice log, initiative tracker, …) |
+| **Fantasy Statblocks** *(optional)* | read the **live** bestiary: SRD creatures *and* creatures defined by your own note frontmatter, in full — the bestiary Atlas tables draw from |
+| **Fantasy Content Generator** *(optional)* | run its commands through the allow-listed command runner |
 
-Works with any agent that speaks MCP — Claude Desktop, Claude Code, OpenCode, Cursor,
-VS Code, or anything else that can reach a Streamable HTTP MCP endpoint. Everything
-stays on localhost, authenticated with your Local REST API key. Nothing leaves your machine.
+Works with any client that speaks MCP — Claude Desktop, Claude Code, OpenCode,
+Cursor, VS Code, or anything else that can reach a Streamable HTTP endpoint.
+Everything stays on localhost, authenticated with your Local REST API key.
+Nothing leaves your machine.
 
-> **How it works:** this plugin does **not** host its own server. It uses the Local
-> REST API plugin's public extension API (`getPublicApi`) to register tools and a REST
-> subresource router into the MCP/REST server that plugin already runs. One endpoint,
-> one API key, no extra ports.
+> **How it works:** this plugin does **not** host its own server. It uses the
+> [Local REST API with MCP](https://github.com/coddingtonbear/obsidian-local-rest-api)
+> plugin's public extension API (`getPublicApi`) to register tools and a REST
+> subresource router into the MCP/REST server that plugin already runs. One
+> endpoint, one API key, no extra ports.
 
 ---
 
 ## Requirements
 
 - **Obsidian desktop** (the Local REST API plugin is desktop-only).
-- **[Local REST API with MCP](https://github.com/coddingtonbear/obsidian-local-rest-api) v5.x**, enabled. Its settings show the API key and ports; the MCP endpoint has been built in since v5 (no separate "MCP" plugin needed).
-- Optional but the point of the plugin: **Atlas VTT**, and/or **Fantasy Statblocks**.
-  Each feature degrades gracefully — `vtt_capabilities` always tells you what is
-  reachable right now.
+- **[Atlas VTT](https://github.com/valentine195/obsidian-atlas-vtt)** — the plugin this bridges.
+- **[Local REST API with MCP](https://github.com/coddingtonbear/obsidian-local-rest-api) v5.x**, enabled. Its settings show the API key and ports; the MCP endpoint has been built in since v5.
+- Optional: **Fantasy Statblocks** (for the bestiary tools), **Fantasy Content Generator** (for its commands).
 
 ## Setup
 
-### 1. Install the Local REST API plugin
+### 1. Install and enable the required plugins
 
-Settings → Community plugins → Browse → **"Local REST API"** (by Adam Coddington) →
-Install → Enable. In its settings, copy the **API key** and note the ports
-(defaults: HTTPS on `27124`, plain HTTP on `27123` if "Enable insecure server" is on).
+Settings → Community plugins → Browse → install and enable **Atlas VTT** and
+**"Local REST API"** (by Adam Coddington). In the REST plugin's settings, copy
+the **API key** and note the ports (defaults: HTTPS on `27124`, plain HTTP on
+`27123` if "Enable insecure server" is on).
 
-> Tip: the plain-HTTP port avoids trusting the plugin's self-signed certificate and is
-> the easiest to work with locally. The examples below assume it.
+> Tip: the plain-HTTP port avoids trusting the plugin's self-signed certificate
+> and is the easiest to work with locally. The examples below assume it.
 
-### 2. Install this plugin
+### 2. Install Atlas VTT MCP Bridge
 
-Settings → Community plugins → Browse → **"Tabletop MCP Bridge"** → Install → Enable.
+Settings → Community plugins → Browse → **"Atlas VTT MCP Bridge"** → Install → Enable.
 
-*(Manual install: copy this folder to `<vault>/.obsidian/plugins/tabletop-mcp-bridge/`,
+*(Manual install: copy this folder to `<vault>/.obsidian/plugins/atlas-vtt-mcp-bridge/`,
 keeping `main.js` and `manifest.json`, then enable it in Community plugins.)*
 
 On enable you should see a notice:
-`Tabletop MCP Bridge: 11 tools (7 typed), REST routes at /vault/<note>/vtt-bridge/`.
+`Atlas VTT MCP Bridge: 11 tools (7 typed), REST routes at /vault/<note>/vtt-bridge/`.
 
 ### 3. Verify the bridge itself
 
@@ -59,9 +69,10 @@ curl -H "Authorization: Bearer YOUR_API_KEY" \
   "http://127.0.0.1:27123/vault/<any-existing-note>/vtt-bridge/capabilities"
 ```
 
-This reports which tabletop plugins were found, which features are active, and any
-load-time errors. (`<any-existing-note>`: subresource routes mount under a real note
-path; any note works, e.g. `index.md`.)
+This reports that Atlas VTT was found, which companion plugins are present,
+which features are active, and any load-time errors.
+(`<any-existing-note>`: subresource routes mount under a real note path; any
+note works, e.g. `index.md`.)
 
 ### 4. Point your MCP client at it
 
@@ -73,7 +84,7 @@ The MCP endpoint is the Local REST API plugin's: `http://127.0.0.1:27123/mcp/`
 ```json
 {
   "mcpServers": {
-    "obsidian-tabletop": {
+    "atlas-vtt": {
       "command": "npx",
       "args": ["-y", "mcp-remote", "http://127.0.0.1:27123/mcp/",
                "--header", "Authorization: Bearer YOUR_API_KEY"]
@@ -101,9 +112,9 @@ The MCP endpoint is the Local REST API plugin's: `http://127.0.0.1:27123/mcp/`
 **Any other Streamable HTTP client:** URL `http://127.0.0.1:27123/mcp/`,
 header `Authorization: Bearer YOUR_API_KEY`.
 
-After (re)connecting, your agent should list tools starting with `vtt_`. Note that
-clients snapshot the tool list at connect time — after (re)enabling the bridge,
-restart the agent session to see it.
+After (re)connecting, your client should list tools starting with `vtt_`. Note
+that clients snapshot the tool list at connect time — after (re)enabling the
+bridge, restart the agent session to see it.
 
 ### 5. Try it
 
@@ -113,7 +124,7 @@ restart the agent session to see it.
 
 | Tool | Arguments | Description |
 |---|---|---|
-| `vtt_capabilities` | — | What's reachable: plugins, versions, resolved services, active features, diagnostics. Call it first when something behaves oddly. |
+| `vtt_capabilities` | — | What's reachable: Atlas VTT + companions, versions, resolved services, active features, diagnostics. Call it first when something behaves oddly. |
 | `vtt_list_collections` | — | Atlas collections with counts. |
 | `vtt_list_assets` | `nameContains?` `type?` `collection?` `limit?` | Atlas asset library (tokens/maps) with image paths and tags. |
 | `vtt_list_bestiary` | `source? (notes\|srd)` `nameContains?` `limit?` | Live Fantasy Statblocks bestiary (summaries). |
@@ -123,7 +134,7 @@ restart the agent session to see it.
 | `vtt_show_player_image` | `path` | Reveal an image on the Atlas player window (see caveat below). |
 | `vtt_player_image_status` | — | Is an image currently displayed? |
 | `vtt_dismiss_player_image` | — | Close the displayed image. |
-| `vtt_execute_command` | `commandId` | Run a command of the three tabletop plugins (prefix allow-list). |
+| `vtt_execute_command` | `commandId` | Run a command of Atlas VTT or its companion plugins (prefix allow-list). |
 
 ## REST endpoints
 
@@ -155,10 +166,10 @@ curl -s -X POST -H "Authorization: Bearer $KEY" -H 'Content-Type: application/js
 ## Design notes
 
 - **Safety.** Plugin-owned state is written only through the owning plugin's service
-  APIs, never by rewriting its files behind its back. Settings writes require the key
-  to already exist (a typo can't litter Atlas's settings). The command runner only
-  accepts the three tabletop plugins' id prefixes. Read-only tools are annotated
-  `readOnlyHint: true`.
+  APIs, never by rewriting another plugin's files behind its back. Settings writes
+  require the key to already exist (a typo can't litter Atlas's settings). The
+  command runner only accepts the id prefixes of Atlas VTT and its two companion
+  plugins. Read-only tools are annotated `readOnlyHint: true`.
 - **The live bestiary.** Frontmatter-defined creatures are *ephemeral* in Fantasy
   Statblocks: held in memory keyed by note path, never written to its `data.json`.
   An empty `monsters` array there proves nothing — the bridge reads the live
@@ -186,6 +197,7 @@ curl -s -X POST -H "Authorization: Bearer $KEY" -H 'Content-Type: application/js
 | Symptom | Fix |
 |---|---|
 | Notice: "please install and enable the Local REST API plugin" | The bridge requires it (it will try to auto-enable it if merely disabled). Install/enable it, then re-enable the bridge. |
+| `vtt_capabilities` reports `atlas-vtt: present: false` | This bridge is built for Atlas VTT — install and enable it. |
 | `vtt_*` tools missing in the agent | Clients sync the tool list at connect time. Restart the agent session. Also confirm the bridge loaded (step 3). |
 | `401 / errorCode 40001` | Wrong or missing API key. Use the key from the Local REST API settings, header `Authorization: Bearer …`. |
 | `404` on subresource routes | The path must include a real note: `/vault/<existing-note>/vtt-bridge/...`. |
@@ -198,9 +210,9 @@ curl -s -X POST -H "Authorization: Bearer $KEY" -H 'Content-Type: application/js
 
 Built and tested against: Obsidian 1.13.x, Local REST API with MCP 5.3.1,
 Atlas VTT 0.4.2, Fantasy Statblocks 4.10.3, Fantasy Content Generator 1.2.4.
-The bridge only uses the extension API (`getPublicApi`, v3) plus at-call-time feature
-detection, so it loads harmlessly when a tabletop plugin is missing — `vtt_capabilities`
-shows what it can see.
+The bridge uses only the extension API (`getPublicApi`, v3) plus at-call-time
+feature detection, so it loads harmlessly when a companion plugin is missing —
+`vtt_capabilities` shows what it can see.
 
 ## Development
 
@@ -212,7 +224,7 @@ npm run build    # type-check + production bundle
 
 Structure: `src/main.ts` (single entry point: registration, capability probe,
 bestiary/asset/settings/command implementations). Install into a test vault by
-copying `manifest.json` + `main.js` to `<vault>/.obsidian/plugins/tabletop-mcp-bridge/`.
+copying `manifest.json` + `main.js` to `<vault>/.obsidian/plugins/atlas-vtt-mcp-bridge/`.
 To reload the plugin code during development, run the Obsidian command
 *Reload app without saving* (`app:reload`).
 
@@ -226,9 +238,9 @@ This plugin was developed end-to-end with AI tooling, and it says so on purpose:
   **quantized Qwen 3.8 Flash Next** model, which produced the typed-arguments
   breakthrough, the public 1.0.0 design, documentation and tests.
 
-It is offered in that same spirit: an agent-facing plugin, built by agents, with
-every documented behavior measured against the installed plugins rather than
-assumed. Full history in [CHANGELOG.md](CHANGELOG.md).
+It is offered in that same spirit: an agent-facing companion for Atlas VTT, built
+by agents, with every documented behavior measured against the installed plugins
+rather than assumed. Full history in [CHANGELOG.md](CHANGELOG.md).
 
 ## License
 

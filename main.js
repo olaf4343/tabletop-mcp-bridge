@@ -1,5 +1,5 @@
 /*
-Tabletop MCP Bridge - generated/bundled by esbuild.
+Atlas VTT MCP Bridge - generated/bundled by esbuild.
 Source lives in src/. Provenance and history: see CHANGELOG.md.
 */
 
@@ -24,7 +24,7 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/main.ts
 var main_exports = {};
 __export(main_exports, {
-  default: () => TabletopMcpBridge
+  default: () => AtlasVttMcpBridge
 });
 module.exports = __toCommonJS(main_exports);
 var import_obsidian = require("obsidian");
@@ -36,7 +36,7 @@ var ROUTE_PREFIX = "vtt-bridge";
 var ATLAS_ASSETS_PATH = "atlas-vtt/.atlas-data/assets-metadata.json";
 var ATLAS_SETTINGS_PATH = "atlas-vtt/.atlas-data/settings.json";
 var TABLETOP_COMMAND_PREFIXES = ["atlas-vtt:", "obsidian-5e-statblocks:", "fantasy-content-generator:"];
-var TabletopMcpBridge = class extends import_obsidian.Plugin {
+var AtlasVttMcpBridge = class extends import_obsidian.Plugin {
   constructor() {
     super(...arguments);
     this.api = null;
@@ -66,7 +66,7 @@ var TabletopMcpBridge = class extends import_obsidian.Plugin {
     this.registerSubresourceRoutes(this.api);
     this.registerMcpTools(this.api);
     try {
-      new import_obsidian.Notice("Tabletop MCP Bridge: " + this.registeredTools.length + " tools (" + this.parameterizedTools.length + " typed), REST routes at /vault/<note>/" + ROUTE_PREFIX + "/");
+      new import_obsidian.Notice("Atlas VTT MCP Bridge: " + this.registeredTools.length + " tools (" + this.parameterizedTools.length + " typed), REST routes at /vault/<note>/" + ROUTE_PREFIX + "/");
     } catch (e) {
     }
   }
@@ -99,7 +99,7 @@ var TabletopMcpBridge = class extends import_obsidian.Plugin {
         this.registerAll();
       } else {
         try {
-          new import_obsidian.Notice('Tabletop MCP Bridge: please install and enable the "Local REST API with MCP" community plugin first.');
+          new import_obsidian.Notice('Atlas VTT MCP Bridge: please install and enable the "Local REST API with MCP" community plugin first.');
         } catch (e) {
         }
       }
@@ -212,7 +212,7 @@ var TabletopMcpBridge = class extends import_obsidian.Plugin {
     const tools = [
       {
         name: "vtt_capabilities",
-        description: "Report which Obsidian tabletop plugins the Tabletop MCP Bridge can reach, which Atlas VTT runtime services are available, and which bridge features are active. Call this first if another tool returns something unexpected, or after upgrading a plugin, to see what changed.",
+        description: "Report which plugins the Atlas VTT MCP Bridge can reach (Atlas VTT and its companion plugins), which Atlas VTT runtime services are available, and which bridge features are active. Call this first if another tool returns something unexpected, or after upgrading a plugin, to see what changed.",
         run: () => bridge.capabilities(),
         readOnly: true
       },

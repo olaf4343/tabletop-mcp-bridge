@@ -1,14 +1,16 @@
 /*
- * Tabletop MCP Bridge
- * ===================
- * Gives any MCP-capable agent (Claude, GPT, OpenCode, Cursor, ...) programmatic
- * reach into the tabletop plugins of an Obsidian vault: Atlas VTT, Fantasy
- * Statblocks and Fantasy Content Generator.
+ * Atlas VTT MCP Bridge
+ * ====================
+ * The agent companion for Atlas VTT: gives any MCP-capable agent (Claude, GPT,
+ * OpenCode, Cursor, ...) programmatic reach into the Atlas VTT setup of an
+ * Obsidian vault - Atlas VTT itself, plus the tabletop plugins that complete an
+ * Atlas table: Fantasy Statblocks and Fantasy Content Generator.
  *
  * WHY THIS EXISTS
  * ---------------
- * None of those plugins expose an API of their own (Atlas VTT is minified and
- * ships no public surface). The supported way in is the Local REST API with
+ * Atlas VTT exposes no API of its own (it is minified and ships no public
+ * surface); the same holds for its companion plugins. The supported way in is
+ * the Local REST API with
  * MCP plugin's public extension API:
  *
  *     app.plugins.plugins['obsidian-local-rest-api'].getPublicApi(manifest)
@@ -63,7 +65,7 @@ const ATLAS_ASSETS_PATH = 'atlas-vtt/.atlas-data/assets-metadata.json';
 const ATLAS_SETTINGS_PATH = 'atlas-vtt/.atlas-data/settings.json';
 const TABLETOP_COMMAND_PREFIXES = ['atlas-vtt:', 'obsidian-5e-statblocks:', 'fantasy-content-generator:'];
 
-export default class TabletopMcpBridge extends Plugin {
+export default class AtlasVttMcpBridge extends Plugin {
   api: any = null;
   registered = false;
   registeredTools: string[] = [];
@@ -94,7 +96,7 @@ export default class TabletopMcpBridge extends Plugin {
     this.registerSubresourceRoutes(this.api);
     this.registerMcpTools(this.api);
     try {
-      new Notice('Tabletop MCP Bridge: ' + this.registeredTools.length + ' tools (' + this.parameterizedTools.length + ' typed), REST routes at /vault/<note>/' + ROUTE_PREFIX + '/');
+      new Notice('Atlas VTT MCP Bridge: ' + this.registeredTools.length + ' tools (' + this.parameterizedTools.length + ' typed), REST routes at /vault/<note>/' + ROUTE_PREFIX + '/');
     } catch (e) { /* ignore */ }
   }
 
@@ -125,7 +127,7 @@ export default class TabletopMcpBridge extends Plugin {
         this.registerAll();
       } else {
         try {
-          new Notice('Tabletop MCP Bridge: please install and enable the "Local REST API with MCP" community plugin first.');
+          new Notice('Atlas VTT MCP Bridge: please install and enable the "Local REST API with MCP" community plugin first.');
         } catch (e) { /* ignore */ }
       }
     }, 1500);
@@ -243,7 +245,7 @@ export default class TabletopMcpBridge extends Plugin {
       {
         name: 'vtt_capabilities',
         description:
-          'Report which Obsidian tabletop plugins the Tabletop MCP Bridge can reach, which Atlas VTT runtime services are available, and which bridge features are active. Call this first if another tool returns something unexpected, or after upgrading a plugin, to see what changed.',
+          'Report which plugins the Atlas VTT MCP Bridge can reach (Atlas VTT and its companion plugins), which Atlas VTT runtime services are available, and which bridge features are active. Call this first if another tool returns something unexpected, or after upgrading a plugin, to see what changed.',
         run: () => bridge.capabilities(),
         readOnly: true,
       },

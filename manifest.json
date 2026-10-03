@@ -1,9 +1,9 @@
 {
-  "id": "tabletop-mcp-bridge",
-  "name": "Tabletop MCP Bridge",
+  "id": "atlas-vtt-mcp-bridge",
+  "name": "Atlas VTT MCP Bridge",
   "version": "1.0.0",
   "minAppVersion": "1.8.7",
-  "description": "Give any MCP-capable agent programmatic reach into Atlas VTT, Fantasy Statblocks and Fantasy Content Generator: assets, live bestiary, settings, player-window reveals, commands.",
+  "description": "Agent companion for Atlas VTT: gives any MCP-capable agent reach into your Atlas setup - asset library, player-window reveals, settings, live Statblocks bestiary, tabletop commands.",
   "author": "DSH",
   "isDesktopOnly": true
 }

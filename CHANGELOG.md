@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to Tabletop MCP Bridge.
+All notable changes to Atlas VTT MCP Bridge.
 
 This plugin was built end-to-end with AI tooling, and credits it openly:
 
@@ -15,11 +15,12 @@ Fantasy Statblocks 4.10.3, Fantasy Content Generator 1.2.4).
 
 ## [1.0.0] - 2026-10-03
 
-First public community-plugin release: **Tabletop MCP Bridge** (id `tabletop-mcp-bridge`).
+First public community-plugin release: **Atlas VTT MCP Bridge** (id `atlas-vtt-mcp-bridge`).
 
-- Renamed from the private `dsh-atlas-bridge`; MCP tools are now namespaced `vtt_*`
-  (the old `atlas_` prefix wrongly implied Atlas-only — the bestiary is Statblocks),
-  REST prefix `/vtt-bridge/`.
+- Named for what it is: the agentic companion for **Atlas VTT**. The tentative
+  early name "Tabletop MCP Bridge" was dropped before directory submission -
+  the only tabletop setup this works with is one built on Atlas VTT.
+- MCP tools are namespaced `vtt_*`, REST prefix `/vtt-bridge/`.
 - Proper TypeScript source (`src/main.ts`) with an esbuild pipeline
   (`npm run build` = type-check + production bundle).
 - Dependency-aware loading: if the Local REST API plugin is installed but disabled,
