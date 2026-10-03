@@ -1,6 +1,6 @@
 # Atlas VTT MCP Bridge
 
-**The agentic companion for [Atlas VTT](https://github.com/valentine195/obsidian-atlas-vtt).**
+**The agentic companion for [Atlas VTT](https://github.com/atlas-vtt/atlas-vtt).**
 
 If your tabletop runs on Atlas VTT inside Obsidian, this plugin gives any
 MCP-capable agent programmatic hands on it: your token and map library, image
@@ -16,9 +16,9 @@ monsters — all as typed MCP tools.
 
 | In your Atlas setup | What an agent can then do through this bridge |
 |---|---|
-| **Atlas VTT** *(required)* | browse the asset library (tokens, maps), reveal images on the player window, read and safely change settings, run Atlas commands (send-map-to-player-view, dice log, initiative tracker, …) |
-| **Fantasy Statblocks** *(optional)* | read the **live** bestiary: SRD creatures *and* creatures defined by your own note frontmatter, in full — the bestiary Atlas tables draw from |
-| **Fantasy Content Generator** *(optional)* | run its commands through the allow-listed command runner |
+| **[Atlas VTT](https://github.com/atlas-vtt/atlas-vtt)** *(required)* | browse the asset library (tokens, maps), reveal images on the player window, read and safely change settings, run Atlas commands (send-map-to-player-view, dice log, initiative tracker, …) |
+| **[Fantasy Statblocks](https://github.com/obsidian-ttrpg-community/fantasy-statblocks)** *(optional)* | read the **live** bestiary: SRD creatures *and* creatures defined by your own note frontmatter, in full — the bestiary Atlas tables draw from |
+| **[Fantasy Content Generator](https://github.com/gregory-jagermeister/Fantasy-Content-Generator)** *(optional)* | run its commands through the allow-listed command runner |
 
 Works with any client that speaks MCP — Claude Desktop, Claude Code, OpenCode,
 Cursor, VS Code, or anything else that can reach a Streamable HTTP endpoint.
@@ -36,9 +36,9 @@ Nothing leaves your machine.
 ## Requirements
 
 - **Obsidian desktop** (the Local REST API plugin is desktop-only).
-- **[Atlas VTT](https://github.com/valentine195/obsidian-atlas-vtt)** — the plugin this bridges.
+- **[Atlas VTT](https://github.com/atlas-vtt/atlas-vtt)** — the plugin this bridges.
 - **[Local REST API with MCP](https://github.com/coddingtonbear/obsidian-local-rest-api) v5.x**, enabled. Its settings show the API key and ports; the MCP endpoint has been built in since v5.
-- Optional: **Fantasy Statblocks** (for the bestiary tools), **Fantasy Content Generator** (for its commands).
+- Optional: **[Fantasy Statblocks](https://github.com/obsidian-ttrpg-community/fantasy-statblocks)** (for the bestiary tools), **[Fantasy Content Generator](https://github.com/gregory-jagermeister/Fantasy-Content-Generator)** (for its commands).
 
 ## Setup
 
