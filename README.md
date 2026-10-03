@@ -31,6 +31,13 @@ Nothing leaves your machine.
 > subresource router into the MCP/REST server that plugin already runs. One
 > endpoint, one API key, no extra ports.
 
+> **Status: 0.1 — deliberately early.** This is a first public release of an
+> AI-built tool: it works and every documented behavior was measured, not
+> assumed — but 0.x means "bugs and missing features are expected; finding them
+> is the point." It ships with its regression suite ([test/](test/)), and
+> **issues and pull requests are open and welcome** — see
+> [CONTRIBUTING.md](CONTRIBUTING.md).
+
 ---
 
 ## Requirements
@@ -220,23 +227,29 @@ feature detection, so it loads harmlessly when a companion plugin is missing —
 npm install
 npm run dev      # esbuild watch → main.js
 npm run build    # type-check + production bundle
+npm test         # regression suite against a live Obsidian (see CONTRIBUTING.md)
 ```
 
 Structure: `src/main.ts` (single entry point: registration, capability probe,
-bestiary/asset/settings/command implementations). Install into a test vault by
+bestiary/asset/settings/command implementations), `test/bridge.test.mjs` (the
+integration suite this release was verified with). Install into a test vault by
 copying `manifest.json` + `main.js` to `<vault>/.obsidian/plugins/atlas-vtt-mcp-bridge/`.
 To reload the plugin code during development, run the Obsidian command
 *Reload app without saving* (`app:reload`).
+
+**Contributions:** PRs are open and welcome — [CONTRIBUTING.md](CONTRIBUTING.md)
+covers the dev loop, how to run the tests against your own vault, the one
+load-bearing trick (`zodish()`), and where help is most needed.
 
 ## Provenance
 
 This plugin was developed end-to-end with AI tooling, and it says so on purpose:
 
-- The private 0.x line (as the *DSH Atlas Bridge*) was created first in the
+- The private prehistory (as the *DSH Atlas Bridge*) was created first in the
   **DeepSeek Harness** (Windows app, v0.2) using the **DeepSeek v4.1 flash** model.
 - The work was then continued in **OpenCode** on a local machine using a
   **quantized Qwen 3.8 Flash Next** model, which produced the typed-arguments
-  breakthrough, the public 1.0.0 design, documentation and tests.
+  breakthrough, the first public release (0.1.0), documentation and tests.
 
 It is offered in that same spirit: an agent-facing companion for Atlas VTT, built
 by agents, with every documented behavior measured against the installed plugins

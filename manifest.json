@@ -1,7 +1,7 @@
 {
   "id": "atlas-vtt-mcp-bridge",
   "name": "Atlas VTT MCP Bridge",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "minAppVersion": "1.8.7",
   "description": "Agent companion for Atlas VTT: gives any MCP-capable agent reach into your Atlas setup - asset library, player-window reveals, settings, live Statblocks bestiary, tabletop commands.",
   "author": "DSH",

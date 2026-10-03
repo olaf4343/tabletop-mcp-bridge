@@ -49,9 +49,10 @@
  *
  * PROVENANCE
  * ----------
- * The private 0.x line ("DSH Atlas Bridge") was created in the DeepSeek
- * Harness using the DeepSeek v4.1 flash model; the public 1.0.0 was continued
- * in OpenCode with a local quantized Qwen 3.8 Flash Next. See CHANGELOG.md.
+ * The private prehistory ("DSH Atlas Bridge", its own separate 0.x line) was
+ * created in the DeepSeek Harness using the DeepSeek v4.1 flash model; the
+ * first public release (0.1.0, this plugin) was completed in OpenCode with a
+ * local quantized Qwen 3.8 Flash Next. See CHANGELOG.md.
  */
 import { Plugin, Notice } from 'obsidian';
 

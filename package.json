@@ -1,11 +1,12 @@
 {
   "name": "atlas-vtt-mcp-bridge",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Obsidian plugin: the agentic companion for Atlas VTT - gives MCP-capable agents reach into Atlas VTT, Fantasy Statblocks and Fantasy Content Generator.",
   "main": "main.js",
   "scripts": {
     "dev": "node esbuild.config.mjs",
-    "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production"
+    "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
+    "test": "node test/bridge.test.mjs"
   },
   "keywords": [
     "obsidian",
@@ -17,8 +18,8 @@
   ],
   "author": "DSH",
   "contributors": [
-    "DeepSeek v4.1 flash (DeepSeek Harness, Windows app v0.2) - authored the 0.x line",
-    "Qwen 3.8 Flash Next, quantized (OpenCode, local) - completed 0.3.0 and the public 1.0.0"
+    "DeepSeek v4.1 flash (DeepSeek Harness, Windows app v0.2) - authored the private prehistory",
+    "Qwen 3.8 Flash Next, quantized (OpenCode, local) - typed-arguments breakthrough, first public release (0.1.0)"
   ],
   "license": "MIT",
   "devDependencies": {
